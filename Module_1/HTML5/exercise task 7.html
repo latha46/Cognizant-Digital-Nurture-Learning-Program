@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Promo Video</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f0f0f0;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    video {
+      display: block;
+      margin: 20px auto;
+      max-width: 100%;
+      border: 4px solid #007BFF;
+      border-radius: 8px;
+    }
+
+    #videoMessage {
+      text-align: center;
+      font-size: 1.1em;
+      color: green;
+      margin-top: 10px;
+    }
+
+    form {
+      margin: 40px auto;
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>You're Invited: Community Event Promo</h2>
+
+  <!-- Video Section -->
+  <video width="600" controls oncanplay="showVideoMessage()" poster="https://via.placeholder.com/600x300?text=Promo+Loading">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <div id="videoMessage"></div>
+
+  <!-- Feedback Form -->
+  <form id="feedbackForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Your Name" required />
+
+    <label for="message">Message:</label>
+    <textarea id="message" placeholder="Any comments?"></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    // Show message when video is ready to play
+    function showVideoMessage() {
+      document.getElementById("videoMessage").textContent = "✅ Video is ready to play!";
+    }
+
+    // Warn if user tries to leave without submitting the form
+    let formChanged = false;
+
+    document.getElementById("feedbackForm").addEventListener("input", () => {
+      formChanged = true;
+    });
+
+    document.getElementById("feedbackForm").addEventListener("submit", () => {
+      formChanged = false;
+      alert("Thank you for your feedback!");
+    });
+
+    window.onbeforeunload = function () {
+      if (formChanged) {
+        return "You have unsaved changes. Are you sure you want to leave?";
+      }
+    };
+  </script>
+
+</body>
+</html>
