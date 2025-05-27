@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>jQuery Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .eventCard {
+      width: 200px;
+      padding: 10px;
+      margin: 10px;
+      background-color: #def;
+      display: none; /* Initially hidden */
+    }
+  </style>
+</head>
+<body>
+
+<button id="registerBtn">Toggle Event Cards</button>
+
+<div class="eventCard">Event 1: Community Meetup</div>
+<div class="eventCard">Event 2: Local Art Fair</div>
+<div class="eventCard">Event 3: Music Festival</div>
+
+<script>
+  $(document).ready(function() {
+    // Handle click on register button
+    $('#registerBtn').click(function() {
+      // Toggle fade in/out of event cards
+      $('.eventCard').fadeToggle('slow');
+    });
+  });
+</script>
+
+</body>
+</html>
