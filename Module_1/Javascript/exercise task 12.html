@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AJAX & Fetch API: Registration</title>
+  <style>
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 4px;
+      width: 300px;
+    }
+    .success {
+      color: green;
+      background-color: #d4edda;
+      border: 1px solid green;
+    }
+    .error {
+      color: red;
+      background-color: #f8d7da;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Register for an Event (AJAX & Fetch Demo)</h2>
+
+  <form id="registrationForm" novalidate>
+    <label>Name: <input type="text" name="name" required /></label><br /><br />
+    <label>Email: <input type="email" name="email" required /></label><br /><br />
+    <label>Event:
+      <select name="event" required>
+        <option value="">--Choose--</option>
+        <option value="musicFest">Music Festival</option>
+        <option value="artWorkshop">Art Workshop</option>
+        <option value="techConf">Tech Conference</option>
+      </select>
+    </label><br /><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="responseMessage" class="message" style="display:none;"></div>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+    const responseMessage = document.getElementById('responseMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      responseMessage.style.display = 'none';
+      responseMessage.textContent = '';
+
+      // Gather form data
+      const formData = {
+        name: form.elements['name'].value.trim(),
+        email: form.elements['email'].value.trim(),
+        event: form.elements['event'].value
+      };
+
+      // Basic validation
+      if (!formData.name || !formData.email || !formData.event) {
+        showMessage('Please fill all fields.', 'error');
+        return;
+      }
+
+      // Show loading message
+      showMessage('Sending registration...', ''); 
+
+      // Simulate backend with setTimeout and fetch mock
+      fakeFetch('https://mockapi.io/register', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {'Content-Type': 'application/json'}
+      })
+      .then(response => {
+        if (response.ok) {
+          showMessage('Registration successful! Thank you.', 'success');
+          form.reset();
+        } else {
+          throw new Error('Registration failed.');
+        }
+      })
+      .catch(() => {
+        showMessage('Error occurred while submitting. Please try again.', 'error');
+      });
+    });
+
+    // Function to show messages
+    function showMessage(message, type) {
+      responseMessage.textContent = message;
+      responseMessage.className = 'message'; // reset classes
+      if (type) responseMessage.classList.add(type);
+      responseMessage.style.display = 'block';
+    }
+
+    // Mock fetch with setTimeout to simulate delayed response
+    function fakeFetch(url, options) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // Simulate success 80% of the time
+          if (Math.random() < 0.8) {
+            resolve({ ok: true, json: () => Promise.resolve({ message: 'Success' }) });
+          } else {
+            resolve({ ok: false });
+          }
+        }, 2000); // 2 second delay
+      });
+    }
+  </script>
+
+</body>
+</html>
