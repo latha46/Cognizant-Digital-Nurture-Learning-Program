@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Nearby Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f0f4f8;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Find Nearby Events</h2>
+  <button onclick="findNearbyEvents()">📍 Find Nearby Events</button>
+  <div id="output"></div>
+</div>
+
+<script>
+  function findNearbyEvents() {
+    const output = document.getElementById('output');
+
+    if (!navigator.geolocation) {
+      output.innerHTML = "<span class='error'>Geolocation is not supported by your browser.</span>";
+      return;
+    }
+
+    output.innerHTML = "Getting your location... ⏳";
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    };
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+    function success(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      output.innerHTML = `
+        <span class="success">
+          ✅ Location Found!<br>
+          Latitude: ${latitude}<br>
+          Longitude: ${longitude}
+        </span>
+      `;
+    }
+
+    function error(err) {
+      switch(err.code) {
+        case err.PERMISSION_DENIED:
+          output.innerHTML = "<span class='error'>❌ Permission denied. Please allow location access.</span>";
+          break;
+        case err.POSITION_UNAVAILABLE:
+          output.innerHTML = "<span class='error'>❌ Location unavailable.</span>";
+          break;
+        case err.TIMEOUT:
+          output.innerHTML = "<span class='error'>⏱️ Location request timed out.</span>";
+          break;
+        default:
+          output.innerHTML = "<span class='error'>❌ An unknown error occurred.</span>";
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
