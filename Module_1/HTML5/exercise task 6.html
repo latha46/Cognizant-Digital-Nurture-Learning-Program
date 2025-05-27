@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .small-img {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #007BFF;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .large {
+      transform: scale(1.8);
+    }
+
+    #charCount {
+      font-size: 0.9em;
+      color: #555;
+      text-align: right;
+      margin-top: -10px;
+    }
+
+    #feeDisplay, #confirmMsg {
+      font-weight: bold;
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Event Feedback</h2>
+
+  <form id="feedbackForm">
+    <label for="phone">Phone Number:</label>
+    <input type="text" id="phone" placeholder="Enter 10-digit number" onblur="validatePhone()" />
+    <span id="phoneError" class="error"></span>
+
+    <label for="eventSelect">Select Event:</label>
+    <select id="eventSelect" onchange="showFee()">
+      <option value="">-- Choose Event --</option>
+      <option value="cleanup" data-fee="Free">Community Cleanup</option>
+      <option value="festival" data-fee="$10">Summer Festival</option>
+      <option value="workshop" data-fee="$25">Workshop</option>
+    </select>
+    <div id="feeDisplay"></div>
+
+    <label for="feedback">Your Feedback:</label>
+    <textarea id="feedback" rows="4" onkeyup="countChars()"></textarea>
+    <div id="charCount">0 characters</div>
+
+    <button type="button" onclick="submitForm()">Submit Feedback</button>
+    <div id="confirmMsg"></div>
+  </form>
+
+  <img src="https://via.placeholder.com/100x80?text=Event" alt="Event" id="eventImage" class="small-img" ondblclick="enlargeImage()" title="Double-click to enlarge" />
+
+  <script>
+    function validatePhone() {
+      const phoneInput = document.getElementById("phone");
+      const errorSpan = document.getElementById("phoneError");
+      const phonePattern = /^\d{10}$/;
+      if (!phonePattern.test(phoneInput.value)) {
+        errorSpan.textContent = "Please enter a valid 10-digit phone number.";
+      } else {
+        errorSpan.textContent = "";
+      }
+    }
+
+    function showFee() {
+      const select = document.getElementById("eventSelect");
+      const feeDisplay = document.getElementById("feeDisplay");
+      const selected = select.options[select.selectedIndex];
+      const fee = selected.dataset.fee || "";
+      if (fee) {
+        feeDisplay.textContent = `Fee: ${fee}`;
+      } else {
+        feeDisplay.textContent = "";
+      }
+    }
+
+    function submitForm() {
+      const confirmMsg = document.getElementById("confirmMsg");
+      confirmMsg.textContent = "Thank you! Your feedback has been submitted.";
+    }
+
+    function enlargeImage() {
+      const img = document.getElementById("eventImage");
+      img.classList.toggle("large");
+    }
+
+    function countChars() {
+      const text = document.getElementById("feedback").value;
+      const counter = document.getElementById("charCount");
+      counter.textContent = `${text.length} characters`;
+    }
+  </script>
+
+</body>
+</html>
