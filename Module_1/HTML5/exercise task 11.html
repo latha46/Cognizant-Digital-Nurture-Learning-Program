@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debugging Demo - Local Event Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .highlight-box {
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Debugging Demo</h2>
+
+  <div class="highlight-box" id="demoBox">
+    Click the button below to simulate an action.
+  </div>
+
+  <button onclick="simulateAction()">Trigger Action</button>
+  <p id="outputMessage" class="error"></p>
+
+  <script>
+    function simulateAction() {
+      console.log("Button clicked: Starting simulateAction function");
+
+      let user = {
+        name: "Aisha",
+        registered: false,
+      };
+
+      // Intentional mistake: misspelled property
+      if (user.registrd === true) {
+        document.getElementById("outputMessage").textContent = "✅ You are registered!";
+      } else {
+        document.getElementById("outputMessage").textContent = "❌ You are not registered!";
+      }
+
+      // Add a breakpoint here to debug user values
+      console.log("User details:", user);
+    }
+  </script>
+
+</body>
+</html>
