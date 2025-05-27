@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Event Portal – City Council Theme</title>
+
+  <style>
+    /* =============================
+       1. Global Styles
+       ============================= */
+
+    /* Background image with fallback color */
+    body {
+      background-color: #e0f7fa; /* Fallback solid color */
+      background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Overlay to improve readability */
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* =============================
+       2. Header Gradient
+       ============================= */
+    h1 {
+      background: linear-gradient(90deg, #007BFF, #00C4FF);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    /* =============================
+       3. Section Header Gradient
+       ============================= */
+    h2 {
+      background: linear-gradient(90deg, #28a745, #a2faaa);
+      color: #fff;
+      padding: 12px;
+      margin: 20px 0 10px;
+    }
+
+    /* =============================
+       4. Event Card Styling
+       ============================= */
+    .eventCard {
+      background-color: rgba(255, 255, 255, 0.9); /* RGBA for transparency */
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .eventCard h3 {
+      color: #007BFF; /* HEX Color */
+    }
+
+    .eventCard p {
+      color: rgba(0, 0, 0, 0.7); /* RGBA for soft black */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h1>City Council Community Event Portal</h1>
+
+    <h2>Upcoming Events</h2>
+
+    <div class="eventCard">
+      <h3>City Park Concert</h3>
+      <p>Live music under the stars. Every Friday night at 7 PM.</p>
+    </div>
+
+    <div class="eventCard">
+      <h3>Downtown Art Walk</h3>
+      <p>Explore local artists' work and enjoy live demos. Sunday 1–5 PM.</p>
+    </div>
+  </div>
+
+</body>
+</html>
