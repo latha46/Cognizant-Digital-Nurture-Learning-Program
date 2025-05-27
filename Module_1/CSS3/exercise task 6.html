@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Styled Links & Lists – Event Portal</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+
+    /* =============================
+       Link Styling with Pseudo-classes
+       ============================= */
+    a:link {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: #6610f2;
+    }
+
+    a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    a:active {
+      color: #ff5733;
+    }
+
+    /* =============================
+       Navigation List Styling
+       ============================= */
+    nav ul {
+      list-style-type: none;          /* Remove bullets */
+      list-style-position: inside;    /* Position list marker inside (if used) */
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    nav li {
+      padding: 10px;
+      margin-bottom: 5px;
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    nav li a {
+      display: block;
+      color: #333;
+    }
+
+    /* =============================
+       Regular List Styling
+       ============================= */
+    .event-info ul {
+      list-style-type: square;
+      list-style-position: outside;
+      padding-left: 20px;
+    }
+
+    .event-info li {
+      margin-bottom: 8px;
+      padding-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event Portal</h1>
+
+  <!-- Navigation Menu -->
+  <nav>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Events</a></li>
+      <li><a href="#">Volunteer</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Link Demonstration -->
+  <p>
+    For more info, visit our 
+    <a href="https://example.com" target="_blank">event page</a>.
+  </p>
+
+  <!-- Styled List Example -->
+  <div class="event-info">
+    <h2>Things to Bring</h2>
+    <ul>
+      <li>Water Bottle</li>
+      <li>Sunscreen</li>
+      <li>Hat or Cap</li>
+      <li>Positive Attitude!</li>
+    </ul>
+  </div>
+
+</body>
+</html>
