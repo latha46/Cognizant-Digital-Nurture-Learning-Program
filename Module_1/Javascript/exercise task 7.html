@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DOM Manipulation - Event Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event-card {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fefefe;
+      max-width: 400px;
+    }
+    .event-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .event-date {
+      color: #666;
+      margin-bottom: 12px;
+    }
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .register-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .cancel-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+    .status {
+      margin-top: 10px;
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Upcoming Community Events</h1>
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Sample event data
+    const events = [
+      { id: 1, name: "Community Picnic", date: "2025-07-15", seats: 5, registered: 0 },
+      { id: 2, name: "Art Workshop", date: "2025-06-30", seats: 3, registered: 0 },
+      { id: 3, name: "Music Fest", date: "2025-08-10", seats: 10, registered: 0 }
+    ];
+
+    // Select container to render events
+    const container = document.querySelector("#eventsContainer");
+
+    // Function to render all events
+    function renderEvents() {
+      container.innerHTML = ""; // Clear container before re-rendering
+
+      events.forEach(event => {
+        // Create event card div
+        const card = document.createElement("div");
+        card.className = "event-card";
+
+        // Event title
+        const title = document.createElement("div");
+        title.className = "event-title";
+        title.textContent = event.name;
+
+        // Event date
+        const date = document.createElement("div");
+        date.className = "event-date";
+        date.textContent = `Date: ${new Date(event.date).toDateString()}`;
+
+        // Seats info
+        const seatsInfo = document.createElement("div");
+        seatsInfo.textContent = `Seats left: ${event.seats - event.registered}`;
+
+        // Status message
+        const status = document.createElement("div");
+        status.className = "status";
+        status.textContent = event.registered > 0 ? `You have registered for this event.` : "";
+
+        // Register button
+        const registerBtn = document.createElement("button");
+        registerBtn.className = "register-btn";
+        registerBtn.textContent = "Register";
+        registerBtn.disabled = event.registered >= event.seats;
+
+        // Cancel button
+        const cancelBtn = document.createElement("button");
+        cancelBtn.className = "cancel-btn";
+        cancelBtn.textContent = "Cancel";
+        cancelBtn.disabled = event.registered === 0;
+
+        // Button event handlers
+        registerBtn.addEventListener("click", () => {
+          if (event.registered < event.seats) {
+            event.registered++;
+            renderEvents();
+          }
+        });
+
+        cancelBtn.addEventListener("click", () => {
+          if (event.registered > 0) {
+            event.registered--;
+            renderEvents();
+          }
+        });
+
+        // Append all elements to card
+        card.appendChild(title);
+        card.appendChild(date);
+        card.appendChild(seatsInfo);
+        card.appendChild(status);
+        card.appendChild(registerBtn);
+        card.appendChild(cancelBtn);
+
+        // Append card to container
+        container.appendChild(card);
+      });
+    }
+
+    // Initial render
+    renderEvents();
+  </script>
+
+</body>
+</html>
