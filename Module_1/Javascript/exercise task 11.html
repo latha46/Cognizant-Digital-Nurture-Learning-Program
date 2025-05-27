@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Registration Form</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 0.9em;
+    }
+    input, select {
+      display: block;
+      margin-bottom: 10px;
+      padding: 6px;
+      width: 250px;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Register for an Event</h2>
+
+  <form id="registrationForm" novalidate>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" />
+    <span id="nameError" class="error"></span>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Your email address" />
+    <span id="emailError" class="error"></span>
+
+    <label for="event">Select Event:</label>
+    <select id="event" name="event">
+      <option value="">--Choose an event--</option>
+      <option value="musicFest">Music Festival</option>
+      <option value="artWorkshop">Art Workshop</option>
+      <option value="techConf">Tech Conference</option>
+    </select>
+    <span id="eventError" class="error"></span>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('registrationForm');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();  // Prevent page reload
+
+      // Clear previous errors
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('eventError').textContent = '';
+
+      // Capture inputs using form.elements
+      const name = form.elements['name'].value.trim();
+      const email = form.elements['email'].value.trim();
+      const selectedEvent = form.elements['event'].value;
+
+      let hasError = false;
+
+      // Simple validation
+      if (name === '') {
+        document.getElementById('nameError').textContent = 'Name is required.';
+        hasError = true;
+      }
+
+      if (email === '') {
+        document.getElementById('emailError').textContent = 'Email is required.';
+        hasError = true;
+      } else if (!validateEmail(email)) {
+        document.getElementById('emailError').textContent = 'Invalid email format.';
+        hasError = true;
+      }
+
+      if (selectedEvent === '') {
+        document.getElementById('eventError').textContent = 'Please select an event.';
+        hasError = true;
+      }
+
+      if (!hasError) {
+        alert(`Thank you for registering, ${name}! You selected: ${selectedEvent}.`);
+        form.reset(); // Clear the form
+      }
+    });
+
+    // Simple email validation regex
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+  </script>
+
+</body>
+</html>
