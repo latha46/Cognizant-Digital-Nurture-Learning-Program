@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event List with Conditionals and Error Handling</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .full {
+      background-color: #f8d7da;
+    }
+    .past {
+      background-color: #e2e3e5;
+      color: #6c757d;
+    }
+  </style>
+  <script>
+    // Sample event list
+    const events = [
+      { name: "Community Yoga", date: "2025-06-20", seats: 10 },
+      { name: "Tree Planting", date: "2024-12-01", seats: 0 },  // Full event
+      { name: "Beach Cleanup", date: "2023-05-01", seats: 15 }, // Past event
+      { name: "Charity Run", date: "2025-07-10", seats: 25 }
+    ];
+
+    // Get today’s date in YYYY-MM-DD format for comparison
+    const today = new Date().toISOString().split("T")[0];
+
+    // Function to render upcoming events with available seats
+    function displayEvents() {
+      const container = document.getElementById("eventList");
+      container.innerHTML = ""; // Clear existing
+
+      events.forEach(event => {
+        const isUpcoming = event.date >= today;
+        const hasSeats = event.seats > 0;
+
+        if (isUpcoming && hasSeats) {
+          const eventDiv = document.createElement("div");
+          eventDiv.className = "event";
+          eventDiv.innerHTML = `
+            <h3>${event.name}</h3>
+            <p>Date: ${event.date}</p>
+            <p>Seats available: ${event.seats}</p>
+            <button onclick="register('${event.name}')">Register</button>
+          `;
+          container.appendChild(eventDiv);
+        }
+      });
+
+      if (!container.hasChildNodes()) {
+        container.innerHTML = "<p>No upcoming events with available seats.</p>";
+      }
+    }
+
+    // Registration function wrapped with try-catch
+    function register(eventName) {
+      try {
+        const event = events.find(e => e.name === eventName);
+        if (!event) throw new Error("Event not found");
+
+        if (event.seats <= 0) {
+          alert("Sorry, no seats available.");
+          return;
+        }
+
+        event.seats--;  // Decrement seat count
+        alert(`You registered for ${eventName}. Seats left: ${event.seats}`);
+
+        // Refresh displayed events after registration
+        displayEvents();
+
+      } catch (error) {
+        console.error("Registration error:", error);
+        alert("An error occurred during registration.");
+      }
+    }
+
+    window.onload = displayEvents;
+  </script>
+</head>
+<body>
+  <h1>Upcoming Events</h1>
+  <div id="eventList"></div>
+</body>
+</html>
