@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selectors Playground – Community Portal</title>
+
+  <style>
+    /* =============================
+       1. Universal Selector
+       ============================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* =============================
+       2. Element Selector
+       ============================= */
+    h2 {
+      font-size: 2rem;
+      color: #0056b3;
+      margin: 20px 0 10px;
+    }
+
+    /* =============================
+       3. ID Selector
+       ============================= */
+    #mainHeader {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* =============================
+       4. Class Selector
+       ============================= */
+    .eventCard {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* =============================
+       5. Grouping Selector
+       ============================= */
+    h3, p {
+      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ID Selector -->
+  <header id="mainHeader">
+    <h1>Local Community Event Portal</h1>
+  </header>
+
+  <!-- Element Selector -->
+  <h2>Upcoming Events</h2>
+
+  <!-- Class Selector and Grouping -->
+  <div class="eventCard">
+    <h3>Music in the Park</h3>
+    <p>Enjoy live performances every Friday at 6 PM in Riverfront Park.</p>
+  </div>
+
+  <div class="eventCard">
+    <h3>Farmer's Market</h3>
+    <p>Every Sunday from 9 AM to 2 PM at Town Square.</p>
+  </div>
+
+</body>
+</html>
