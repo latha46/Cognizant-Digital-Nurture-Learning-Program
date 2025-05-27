@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Debug & Test Demo - All in One</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .navbar {
+      background-color: #007bff;
+      padding: 15px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Box styling */
+    .box {
+      width: 300px;
+      height: 150px;
+      background-color: #28a745;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      border-radius: 8px;
+      font-size: 1.5rem;
+    }
+
+    /* Responsive: stack nav vertically under 600px */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .box {
+        width: 100%;
+        height: 100px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <main>
+    <h1>Debug & Test Your Styles</h1>
+    <p>Resize your browser or toggle device toolbar in DevTools to test responsiveness.</p>
+    <div class="box">Sample Box</div>
+  </main>
+
+</body>
+</html>
