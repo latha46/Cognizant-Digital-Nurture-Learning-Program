@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Bulletin - Multi-column Layout</title>
+
+  <style>
+    body {
+      font-family: Georgia, serif;
+      padding: 20px;
+      background-color: #fafafa;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    /* Multi-column news article section */
+    .news-article {
+      column-count: 2;              /* Number of columns */
+      column-gap: 30px;             /* Space between columns */
+      column-rule: 1px solid gray; /* Vertical separator line */
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Optional styling */
+    .news-article p {
+      margin-bottom: 1em;
+      text-align: justify;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Bulletin</h1>
+
+  <section class="news-article">
+    <h2>Annual Community Festival Brings Joy and Unity</h2>
+    <p>
+      This year’s annual community festival was a spectacular success, drawing in hundreds of residents from across the city.
+      Families enjoyed food stalls, live music, and interactive workshops that celebrated local culture and talents.
+      The event also featured a dedicated kids’ zone and a sustainability fair promoting eco-friendly practices.
+    </p>
+    <p>
+      Organizers emphasized the importance of community spirit and inclusivity, and many volunteers expressed their enthusiasm
+      for continuing the tradition next year. The festival’s highlight was a parade showcasing colorful floats and costumes
+      designed by local artists.
+    </p>
+    <p>
+      Feedback from attendees has been overwhelmingly positive, with many praising the event’s organization and vibrant atmosphere.
+      Plans are already underway to expand the festival to neighboring districts, aiming to foster even greater connections within the region.
+    </p>
+  </section>
+
+</body>
+</html>
