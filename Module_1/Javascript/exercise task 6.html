@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arrays and Methods - Community Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event-card {
+      border: 1px solid #888;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Events Array Management</h1>
+
+  <div id="allEvents"></div>
+  <h2>Music Events Only</h2>
+  <div id="musicEvents"></div>
+
+  <script>
+    // Initial array of event objects
+    const events = [
+      { name: "Community Picnic", category: "Social", date: "2025-07-15" },
+      { name: "Art Workshop", category: "Workshop", date: "2025-06-30" },
+      { name: "Music Fest", category: "Music", date: "2025-08-10" }
+    ];
+
+    // 1. Add a new event using .push()
+    events.push({ name: "Baking Workshop", category: "Workshop", date: "2025-09-05" });
+
+    // 2. Filter only music events using .filter()
+    const musicEvents = events.filter(event => event.category.toLowerCase() === "music");
+
+    // 3. Format events as display cards using .map()
+    function displayEvents(eventArray, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = ""; // Clear existing content
+
+      eventArray.map(event => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.textContent = `${event.category} Event: "${event.name}" on ${new Date(event.date).toDateString()}`;
+        container.appendChild(card);
+      });
+    }
+
+    // Display all events
+    displayEvents(events, "allEvents");
+
+    // Display filtered music events
+    displayEvents(musicEvents, "musicEvents");
+
+  </script>
+
+</body>
+</html>
