@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Handling - Community Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event-card {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #fefefe;
+      max-width: 400px;
+    }
+    .event-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .event-date {
+      color: #666;
+      margin-bottom: 12px;
+    }
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .register-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .status {
+      margin-top: 10px;
+      font-style: italic;
+      color: #555;
+    }
+    label, select, input {
+      margin-right: 15px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Upcoming Community Events</h1>
+
+  <!-- Filters -->
+  <label for="categoryFilter">Filter by category:</label>
+  <select id="categoryFilter">
+    <option value="all">All</option>
+    <option value="music">Music</option>
+    <option value="workshop">Workshop</option>
+    <option value="picnic">Picnic</option>
+  </select>
+
+  <label for="searchInput">Search by name:</label>
+  <input type="text" id="searchInput" placeholder="Type to search..." />
+
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Sample events with categories
+    const events = [
+      { id: 1, name: "Community Picnic", date: "2025-07-15", seats: 5, registered: 0, category: "picnic" },
+      { id: 2, name: "Art Workshop", date: "2025-06-30", seats: 3, registered: 0, category: "workshop" },
+      { id: 3, name: "Music Fest", date: "2025-08-10", seats: 10, registered: 0, category: "music" },
+      { id: 4, name: "Jazz Night", date: "2025-09-01", seats: 8, registered: 0, category: "music" }
+    ];
+
+    const container = document.querySelector("#eventsContainer");
+    const categoryFilter = document.querySelector("#categoryFilter");
+    const searchInput = document.querySelector("#searchInput");
+
+    // Function to render events based on filters and search
+    function renderEvents() {
+      container.innerHTML = "";
+      const selectedCategory = categoryFilter.value;
+      const searchText = searchInput.value.toLowerCase();
+
+      // Filter events by category and search text
+      const filteredEvents = events.filter(event => {
+        const matchesCategory = selectedCategory === "all" || event.category === selectedCategory;
+        const matchesSearch = event.name.toLowerCase().includes(searchText);
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filteredEvents.length === 0) {
+        container.textContent = "No events found.";
+        return;
+      }
+
+      filteredEvents.forEach(event => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+
+        const title = document.createElement("div");
+        title.className = "event-title";
+        title.textContent = event.name;
+
+        const date = document.createElement("div");
+        date.className = "event-date";
+        date.textContent = `Date: ${new Date(event.date).toDateString()}`;
+
+        const seatsInfo = document.createElement("div");
+        seatsInfo.textContent = `Seats left: ${event.seats - event.registered}`;
+
+        const status = document.createElement("div");
+        status.className = "status";
+        status.textContent = event.registered > 0 ? `You have registered for this event.` : "";
+
+        const registerBtn = document.createElement("button");
+        registerBtn.className = "register-btn";
+        registerBtn.textContent = "Register";
+        registerBtn.disabled = event.registered >= event.seats;
+
+        // onclick to register
+        registerBtn.onclick = () => {
+          if (event.registered < event.seats) {
+            event.registered++;
+            renderEvents(); // Re-render to update UI
+          }
+        };
+
+        card.appendChild(title);
+        card.appendChild(date);
+        card.appendChild(seatsInfo);
+        card.appendChild(status);
+        card.appendChild(registerBtn);
+        container.appendChild(card);
+      });
+    }
+
+    // onchange for category filter
+    categoryFilter.onchange = renderEvents;
+
+    // keydown for search input (with debounce)
+    let debounceTimeout;
+    searchInput.onkeydown = () => {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(renderEvents, 300);
+    };
+
+    // Initial render
+    renderEvents();
+  </script>
+
+</body>
+</html>
