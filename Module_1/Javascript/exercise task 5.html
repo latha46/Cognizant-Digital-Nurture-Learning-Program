@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Objects and Prototypes - Event Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .event {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .event-keys {
+      font-family: monospace;
+      background: #f4f4f4;
+      padding: 5px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Event Objects & Prototypes Demo</h1>
+
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Define Event class with constructor and prototype method
+    class Event {
+      constructor(name, date, seats) {
+        this.name = name;
+        this.date = new Date(date);
+        this.seats = seats;
+      }
+
+      // Prototype method to check if seats available
+      checkAvailability() {
+        return this.seats > 0;
+      }
+    }
+
+    // Create event instances
+    const event1 = new Event("Community Picnic", "2025-07-15", 20);
+    const event2 = new Event("Art Workshop", "2025-06-30", 0); // full
+    const event3 = new Event("Music Fest", "2025-08-10", 15);
+
+    const events = [event1, event2, event3];
+
+    // Display events in HTML
+    const container = document.getElementById("eventsContainer");
+
+    events.forEach((event, index) => {
+      const div = document.createElement("div");
+      div.className = "event";
+
+      // Use Object.entries() to get key-value pairs
+      const entries = Object.entries(event).map(
+        ([key, val]) => `<strong>${key}:</strong> ${val instanceof Date ? val.toDateString() : val}`
+      ).join("<br>");
+
+      div.innerHTML = `
+        <h2>Event ${index + 1}: ${event.name}</h2>
+        <p><strong>Date:</strong> ${event.date.toDateString()}</p>
+        <p><strong>Seats Available:</strong> ${event.seats}</p>
+        <p><strong>Available?:</strong> ${event.checkAvailability() ? "Yes" : "No"}</p>
+        <div class="event-keys">
+          <h4>Object Keys & Values:</h4>
+          ${entries}
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+  </script>
+
+</body>
+</html>
