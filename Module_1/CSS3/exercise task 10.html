@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Community Portal</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f9f9f9;
+      font-size: 18px; /* base font size */
+    }
+
+    /* Flexbox navigation */
+    nav {
+      display: flex;
+      gap: 20px;
+      background-color: #007bff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    nav a:hover {
+      background-color: #0056b3;
+    }
+
+    /* Sample image */
+    .hero-image {
+      display: block;
+      max-width: 80vw;
+      height: auto;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Content container with flexible width */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    /* Responsive styles for screens less than 768px wide */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px; /* reduce font size */
+        padding: 15px;
+      }
+
+      nav {
+        flex-direction: column;    /* stack nav links vertically */
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+      }
+
+      nav a {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero-image {
+        max-width: 95vw;  /* smaller image on mobile */
+      }
+
+      .content {
+        padding: 0 5vw;   /* horizontal padding using viewport width */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Events</a>
+    <a href="#">Volunteers</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <div class="content">
+    <h1>Welcome to the Local Community Event Portal</h1>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" 
+         alt="Community Event" class="hero-image" />
+
+    <p>
+      Our portal connects residents with exciting events, volunteering opportunities, and local news.
+      Whether you're on a desktop, tablet, or phone, enjoy a seamless browsing experience!
+    </p>
+  </div>
+
+</body>
+</html>
