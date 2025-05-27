@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Details Example</title>
+  <script>
+    // Syntax, Data Types, and Operators
+
+    // Use const for values that don’t change
+    const eventName = "Community Clean-Up Drive";
+    const eventDate = "2025-06-15";
+
+    // Use let for values that change
+    let availableSeats = 50;
+
+    // Show event details using a template literal
+    const eventInfo = `Event: ${eventName} | Date: ${eventDate} | Seats Left: ${availableSeats}`;
+    console.log(eventInfo);
+
+    // Simulate registration
+    function registerUser() {
+      if (availableSeats > 0) {
+        availableSeats--;  // decrease seat count
+        alert(`Registered! Seats left: ${availableSeats}`);
+        console.log(`Seats after registration: ${availableSeats}`);
+      } else {
+        alert("Sorry, the event is full.");
+      }
+    }
+
+    // Optional: Simulate a cancellation
+    function cancelRegistration() {
+      availableSeats++;  // increase seat count
+      alert(`Registration canceled. Seats available: ${availableSeats}`);
+    }
+  </script>
+</head>
+<body>
+  <h1>Event Registration</h1>
+  <button onclick="registerUser()">Register</button>
+  <button onclick="cancelRegistration()">Cancel Registration</button>
+</body>
+</html>
