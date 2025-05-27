@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Event Functions, Scope & Closures</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  .event {
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+  }
+</style>
+<script>
+  // Event list with categories
+  let events = [
+    { id: 1, name: "Community Yoga", date: "2025-06-20", seats: 10, category: "Wellness" },
+    { id: 2, name: "Tree Planting", date: "2025-12-01", seats: 5, category: "Environment" },
+    { id: 3, name: "Charity Run", date: "2025-07-10", seats: 25, category: "Sports" }
+  ];
+
+  // Closure to track registrations per category
+  function createRegistrationTracker() {
+    const registrations = {};
+    return function(category) {
+      registrations[category] = (registrations[category] || 0) + 1;
+      return registrations[category];
+    };
+  }
+  const trackRegistrations = createRegistrationTracker();
+
+  // Add new event
+  function addEvent(name, date, seats, category) {
+    const newEvent = {
+      id: events.length + 1,
+      name,
+      date,
+      seats,
+      category
+    };
+    events.push(newEvent);
+    displayEvents(); // Refresh display
+  }
+
+  // Register user for an event
+  function registerUser(eventId) {
+    const event = events.find(e => e.id === eventId);
+    if (!event) {
+      alert("Event not found");
+      return;
+    }
+    if (event.seats <= 0) {
+      alert("No seats available");
+      return;
+    }
+    event.seats--;
+    const total = trackRegistrations(event.category);
+    alert(`Registered for "${event.name}". Seats left: ${event.seats}. Total registrations for category "${event.category}": ${total}`);
+    displayEvents();
+  }
+
+  // Higher-order function to filter events based on a callback
+  function filterEventsByCategory(callback) {
+    return events.filter(callback);
+  }
+
+  // Display events filtered by category
+  function displayEvents(filteredEvents = events) {
+    const container = document.getElementById("eventList");
+    container.innerHTML = "";
+    if (filteredEvents.length === 0) {
+      container.innerHTML = "<p>No events to show.</p>";
+      return;
+    }
+    filteredEvents.forEach(event => {
+      const div = document.createElement("div");
+      div.className = "event";
+      div.innerHTML = `
+        <h3>${event.name} (${event.category})</h3>
+        <p>Date: ${event.date}</p>
+        <p>Seats available: ${event.seats}</p>
+        <button onclick="registerUser(${event.id})">Register</button>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  // Filter UI handler
+  function onCategoryChange() {
+    const category = document.getElementById("categoryFilter").value;
+    if (category === "all") {
+      displayEvents();
+    } else {
+      const filtered = filterEventsByCategory(e => e.category === category);
+      displayEvents(filtered);
+    }
+  }
+
+  // Initial load
+  window.onload = () => {
+    displayEvents();
+  };
+</script>
+</head>
+<body>
+
+  <h1>Local Community Events</h1>
+
+  <label for="categoryFilter">Filter by Category:</label>
+  <select id="categoryFilter" onchange="onCategoryChange()">
+    <option value="all">All</option>
+    <option value="Wellness">Wellness</option>
+    <option value="Environment">Environment</option>
+    <option value="Sports">Sports</option>
+  </select>
+
+  <div id="eventList"></div>
+
+  <h2>Add New Event</h2>
+  <form id="addEventForm" onsubmit="event.preventDefault(); handleAddEvent();">
+    <input type="text" id="eventName" placeholder="Event Name" required />
+    <input type="date" id="eventDate" required />
+    <input type="number" id="eventSeats" placeholder="Seats" min="1" required />
+    <select id="eventCategory" required>
+      <option value="">Select Category</option>
+      <option value="Wellness">Wellness</option>
+      <option value="Environment">Environment</option>
+      <option value="Sports">Sports</option>
+    </select>
+    <button type="submit">Add Event</button>
+  </form>
+
+<script>
+  function handleAddEvent() {
+    const name = document.getElementById("eventName").value.trim();
+    const date = document.getElementById("eventDate").value;
+    const seats = parseInt(document.getElementById("eventSeats").value, 10);
+    const category = document.getElementById("eventCategory").value;
+
+    if (!name || !date || !seats || !category) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    addEvent(name, date, seats, category);
+
+    // Clear form fields
+    document.getElementById("addEventForm").reset();
+  }
+</script>
+
+</body>
+</html>
